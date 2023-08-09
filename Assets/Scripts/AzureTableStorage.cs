@@ -44,16 +44,22 @@ public class AzureTableStorage : MonoBehaviour
 
         var wifiEntity = new WiFiEntity
         {
-            PartitionKey = "wifi",
+            PartitionKey = "wifi2",
             RowKey = Guid.NewGuid().ToString(),
             SSID = "kklab",
-            Password = "test0809"
+            Password = "test20230809"
         };
 
         tableClient.AddEntityAsync(wifiEntity);
     }
+    public void StartupAddWiFiEntityAsync()
+    {
+        AddWiFiEntityAsync();
+    }
 
 }
+
+
 
 
 
