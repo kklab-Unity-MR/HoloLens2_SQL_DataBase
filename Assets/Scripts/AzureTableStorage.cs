@@ -14,7 +14,7 @@ using TMPro;
 
 public class AzureTableStorage : MonoBehaviour
 {
-    private string connectionString = "DefaultEndpointsProtocol=https;AccountName=networkholo2;AccountKey=4bD4Q6vZbra4zT7IEqZ5ed7wzWFXmsI4avQ4f6DeNSOHwLsZGYmK9ZBnuEjP5otWInmsqAGPSTs5+AStHxLwyA==;EndpointSuffix=core.windows.net";
+    private string connectionString = "";
     private TableServiceClient tableServiceClient;
     private string tableName = "WiFiTest";
 
@@ -38,15 +38,33 @@ public class AzureTableStorage : MonoBehaviour
         string pass = passTMP.GetComponent<InputEdit>().GetInputText();
         Debug.Log(pass);
 
-        var wifiEntity = new WiFiEntity
+        if(!string.IsNullOrWhiteSpace(ssid) && !string.IsNullOrWhiteSpace(pass))
         {
-            PartitionKey = "wifi",
-            RowKey = Guid.NewGuid().ToString(),
-            SSID = ssid,
-            Password = pass
-        };
+            var wifiEntity = new WiFiEntity
+            {
+                PartitionKey = "wifi",
+                RowKey = Guid.NewGuid().ToString(),
+                SSID = ssid,
+                Password = pass
+            };
 
-        //await tableClient.AddEntityAsync(wifiEntity);
+            try
+            {
+                //await tableClient.AddEntityAsync(wifiEntity);
+            }
+            catch(Exception e)
+            {
+                Debug.Log(e);
+                Debug.Log("エラーダイアログ表示");
+            }
+            
+        }
+        else
+        {
+            Debug.Log("NULLダイアログ表示");
+        }
+
+
     }
     public void AddWiFiEntityAsyncVoid()
     {

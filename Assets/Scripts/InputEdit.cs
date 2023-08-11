@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,7 +18,7 @@ public class InputEdit : MonoBehaviour
     }
 
     public string GetInputText()
-    {
+    {   
         return input;
     }
 }
