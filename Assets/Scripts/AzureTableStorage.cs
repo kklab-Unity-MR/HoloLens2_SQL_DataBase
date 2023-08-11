@@ -7,6 +7,7 @@ using System;
 using Azure;
 using UnityEngine.UI;
 using TMPro;
+using System.Text.RegularExpressions;
 
 
 //using Microsoft.WindowsAzure.Storage;
@@ -40,23 +41,33 @@ public class AzureTableStorage : MonoBehaviour
 
         if(!string.IsNullOrWhiteSpace(ssid) && !string.IsNullOrWhiteSpace(pass))
         {
-            var wifiEntity = new WiFiEntity
+            if (IsOnlyAlphanumeric(ssid) && IsOnlyAlphanumeric(pass))
             {
-                PartitionKey = "wifi",
-                RowKey = Guid.NewGuid().ToString(),
-                SSID = ssid,
-                Password = pass
-            };
+                var wifiEntity = new WiFiEntity
+                {
+                    PartitionKey = "wifi",
+                    RowKey = Guid.NewGuid().ToString(),
+                    SSID = ssid,
+                    Password = pass
+                };
 
-            try
-            {
-                //await tableClient.AddEntityAsync(wifiEntity);
+                try
+                {
+                    await tableClient.AddEntityAsync(wifiEntity);
+                }
+                catch (Exception e)
+                {
+                    Debug.Log(e);
+                    gameObject.GetComponent<DialogController>().DataBaseSaveErrorDialog();
+                }
             }
-            catch(Exception e)
+            else
             {
-                Debug.Log(e);
-                gameObject.GetComponent<DialogController>().DataBaseSaveError();
+                Debug.Log("îºäpâpêîéöÇ∂Ç·Ç»Ç¢");
+                gameObject.GetComponent<DialogController>().NotAlphanumeric();
+
             }
+
             
         }
         else
@@ -81,9 +92,15 @@ public class AzureTableStorage : MonoBehaviour
 
         tableClient.AddEntityAsync(wifiEntity);
     }
+
     public void StartupAddWiFiEntityAsync()
     {
         AddWiFiEntityAsync();
+    }
+
+    private  bool IsOnlyAlphanumeric(string text)
+    {
+        return (Regex.IsMatch(text, @"^[0-9a-zA-Z]+$"));
     }
 
 }

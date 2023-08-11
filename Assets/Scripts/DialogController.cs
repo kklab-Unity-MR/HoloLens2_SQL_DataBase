@@ -47,7 +47,7 @@ public class DialogController : MonoBehaviour
         }
     }
 
-    public void DataBaseSaveError()
+    public void DataBaseSaveErrorDialog()
     {
         Dialog dialog = Dialog.Open(DialogPrefabSmall, DialogButtonType.OK, "エラーメッセージ", "エラーが発生し、設定が保存出来ませんでした", false);
         //Dialog dialog = Dialog.Open(DialogPrefabLarge, DialogButtonType.OK, "Confirmation Dialog, Large, Far", "This is an example of a large dialog with only one button, placed at far interaction range", false);
@@ -57,84 +57,16 @@ public class DialogController : MonoBehaviour
         }
     }
 
-    public void OpenChoiceDialogPractice()
+    public void NotAlphanumeric()
     {
-        Dialog dialog = Dialog.Open(DialogPrefabSmall, DialogButtonType.Yes | DialogButtonType.No, "演習モード", "\n演習モードを開始しますか？", true);
-        if(dialog != null)
-        {
-            dialog.OnClosed += OnClosedDialogEventPractice1;
-        }
-    }
-
-    public void OpenChoiceDialogExplanation()
-    {
-        Dialog dialog = Dialog.Open(DialogPrefabSmall, DialogButtonType.Yes | DialogButtonType.No, "説明モード", "\n説明モードを開始しますか？", true);
+        Dialog dialog = Dialog.Open(DialogPrefabSmall, DialogButtonType.OK, "エラーメッセージ", "SSID, Passwordに全角が使用されています\n半角英数で入力してください", false);
+        //Dialog dialog = Dialog.Open(DialogPrefabLarge, DialogButtonType.OK, "Confirmation Dialog, Large, Far", "This is an example of a large dialog with only one button, placed at far interaction range", false);
         if (dialog != null)
         {
-            dialog.OnClosed += OnClosedDialogEventExplanation1;
+            dialog.OnClosed += OnClosedDialogEventOnlyOK;
         }
     }
 
-    public void OpenChoiceDialogbackHome()
-    {
-        Dialog dialog = Dialog.Open(DialogPrefabSmall, DialogButtonType.Yes | DialogButtonType.No, "ホーム画面", "\nホーム画面に戻りますか？", true);
-        if (dialog != null)
-        {
-            dialog.OnClosed += OnClosedDialogEventBackHome;
-
-            
-        }
-    }
-
-    public void OpenChoiceDialogPractice2()
-    {
-        Dialog dialog = Dialog.Open(DialogPrefabSmall, DialogButtonType.Yes | DialogButtonType.No, "開発者モード", "\nPractice2に移動しますか？", true);
-        if (dialog != null)
-        {
-            dialog.OnClosed += OnClosedDialogEvenPractice2;
-
-
-        }
-    }
-
-    private void OnClosedDialogEventPractice1(DialogResult result)
-    {
-        if (result.Result == DialogButtonType.Yes)
-        {
-            Debug.Log("yesが押されました");
-            SceneManager.LoadScene("Practice1");
-        }
-        
-    }
-
-    private void OnClosedDialogEventExplanation1(DialogResult result)
-    {
-        if (result.Result == DialogButtonType.Yes)
-        {
-            Debug.Log("yesが押されました");
-            SceneManager.LoadScene("explanation1");
-        }
-
-    }
-
-    private void OnClosedDialogEventBackHome(DialogResult result)
-    {
-        if (result.Result == DialogButtonType.Yes)
-        {
-            Debug.Log("yesが押されました");
-            SceneManager.LoadScene("StartMenu");
-        }
-
-    }
-
-    private void OnClosedDialogEvenPractice2(DialogResult result)
-    {
-        if (result.Result == DialogButtonType.Yes)
-        {
-            Debug.Log("練習2");
-        }
-
-    }
 
     private void OnClosedDialogEventOnlyOK(DialogResult result)
     {
