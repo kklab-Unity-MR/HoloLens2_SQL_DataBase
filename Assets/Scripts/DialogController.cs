@@ -67,6 +67,16 @@ public class DialogController : MonoBehaviour
         }
     }
 
+    public void AlradySaved()
+    {
+        Dialog dialog = Dialog.Open(DialogPrefabSmall, DialogButtonType.OK, "エラーメッセージ", "すでにSSIDとPasswordが設定されています", false);
+        //Dialog dialog = Dialog.Open(DialogPrefabLarge, DialogButtonType.OK, "Confirmation Dialog, Large, Far", "This is an example of a large dialog with only one button, placed at far interaction range", false);
+        if (dialog != null)
+        {
+            dialog.OnClosed += OnClosedDialogEventOnlyOK;
+        }
+    }
+
 
     private void OnClosedDialogEventOnlyOK(DialogResult result)
     {

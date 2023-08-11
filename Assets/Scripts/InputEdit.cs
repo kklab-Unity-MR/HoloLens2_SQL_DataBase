@@ -11,14 +11,25 @@ public class InputEdit : MonoBehaviour
 
     private string input = null;
 
+    private bool isDataBaseSaved = false;
+
     public void OnEndEdit()
-    {
-        input = Field.GetComponent<TMP_InputField>().text;
-        GetComponent<TMP_Text>().text = input;
+    {   
+        if(isDataBaseSaved is false)
+        {
+            input = Field.GetComponent<TMP_InputField>().text;
+            GetComponent<TMP_Text>().text = input;
+        }
+        
     }
 
     public string GetInputText()
     {   
         return input;
+    }
+
+    public void SetIsDataBaseSaved(bool isFromAzureTableStrageSpript)
+    {
+        isDataBaseSaved = isFromAzureTableStrageSpript;
     }
 }
