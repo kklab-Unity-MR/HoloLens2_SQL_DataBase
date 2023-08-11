@@ -15,7 +15,7 @@ using System.Text.RegularExpressions;
 
 public class AzureTableStorage : MonoBehaviour
 {
-    private string connectionString = "DefaultEndpointsProtocol=https;AccountName=networkholo2;AccountKey=4bD4Q6vZbra4zT7IEqZ5ed7wzWFXmsI4avQ4f6DeNSOHwLsZGYmK9ZBnuEjP5otWInmsqAGPSTs5+AStHxLwyA==;EndpointSuffix=core.windows.net";
+    private string connectionString = "";
     private TableServiceClient tableServiceClient;
     private string tableName = "WiFiTest";
 
