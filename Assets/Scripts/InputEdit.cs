@@ -8,9 +8,16 @@ public class InputEdit : MonoBehaviour
 {
     public TMP_InputField Field;
 
+    private string input = null;
+
     public void OnEndEdit()
     {
-        string input = Field.GetComponent<TMP_InputField>().text;
+        input = Field.GetComponent<TMP_InputField>().text;
         GetComponent<TMP_Text>().text = input;
+    }
+
+    public string GetInputText()
+    {
+        return input;
     }
 }

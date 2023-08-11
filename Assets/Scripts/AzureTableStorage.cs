@@ -6,6 +6,7 @@ using UnityEngine;
 using System;
 using Azure;
 using UnityEngine.UI;
+using TMPro;
 
 
 //using Microsoft.WindowsAzure.Storage;
@@ -13,9 +14,13 @@ using UnityEngine.UI;
 
 public class AzureTableStorage : MonoBehaviour
 {
-    private string connectionString = "DefaultEndpointsProtocol=https;AccountName=networkholo2;AccountKey=RvMoDS6B6GWSrWeFWuoXT6B5D7OUhR2v9gWSniA6T+xjM3PJPpo4fyn0ihwgxf6pZcj+9WReS9C3+ASt/L21xQ==;EndpointSuffix=core.windows.net";
+    private string connectionString = "DefaultEndpointsProtocol=https;AccountName=networkholo2;AccountKey=4bD4Q6vZbra4zT7IEqZ5ed7wzWFXmsI4avQ4f6DeNSOHwLsZGYmK9ZBnuEjP5otWInmsqAGPSTs5+AStHxLwyA==;EndpointSuffix=core.windows.net";
     private TableServiceClient tableServiceClient;
     private string tableName = "WiFiTest";
+
+    [SerializeField] private TextMeshPro ssidTMP;
+    [SerializeField] private TextMeshPro passTMP;
+
 
 
     // Start is called before the first frame update
@@ -28,15 +33,20 @@ public class AzureTableStorage : MonoBehaviour
     {
         var tableClient = tableServiceClient.GetTableClient(tableName);
 
+        string ssid = ssidTMP.GetComponent<InputEdit>().GetInputText();
+        Debug.Log(ssid);
+        string pass = passTMP.GetComponent<InputEdit>().GetInputText();
+        Debug.Log(pass);
+
         var wifiEntity = new WiFiEntity
         {
             PartitionKey = "wifi",
             RowKey = Guid.NewGuid().ToString(),
-            SSID = "kklab",
-            Password = "test0809"
+            SSID = ssid,
+            Password = pass
         };
 
-        await tableClient.AddEntityAsync(wifiEntity);
+        //await tableClient.AddEntityAsync(wifiEntity);
     }
     public void AddWiFiEntityAsyncVoid()
     {
