@@ -55,13 +55,14 @@ public class AzureTableStorage : MonoBehaviour
             catch(Exception e)
             {
                 Debug.Log(e);
-                Debug.Log("エラーダイアログ表示");
+                gameObject.GetComponent<DialogController>().DataBaseSaveError();
             }
             
         }
         else
         {
-            Debug.Log("NULLダイアログ表示");
+            Debug.Log("Null");
+            gameObject.GetComponent<DialogController>().OpenNullEnputyDialog();
         }
 
 
