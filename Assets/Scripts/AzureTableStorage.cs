@@ -114,13 +114,29 @@ public class AzureTableStorage : MonoBehaviour
         AddWiFiEntityAsync();
     }
 
+    public void StartupShowWiFiEntityAsync()
+    {
+        ShowWiFiEntityAsync();
+    }
+
     private  bool IsOnlyAlphanumeric(string text)
     {
         return (Regex.IsMatch(text, @"^[0-9a-zA-Z]+$"));
     }
 
-}
+    public async Task ShowWiFiEntityAsync()
+    {
+        var tableClient = tableServiceClient.GetTableClient(tableName);
 
+        var singleRow = await tableClient.GetEntityAsync<WiFiEntity>(
+            rowKey: "1",
+            partitionKey: "wifi"
+            );
+
+        Debug.Log(singleRow.Value);
+    }
+
+}
 
 
 
